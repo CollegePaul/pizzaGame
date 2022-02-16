@@ -17,7 +17,7 @@ const utils = {
         }else if (direction === "right"){
             x += size;
         }else if (direction === "up"){
-            y+= size;
+            y-= size;
         }else if (direction === "down"){
             y += size;
         }

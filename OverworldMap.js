@@ -30,6 +30,31 @@ class OverworldMap {
         const {x,y} = utils.nextPosition(currentX, currentY, direction);
         return this.walls[`${x},${y}`] || false;
     }
+
+    mountObjects(){
+        Object.values(this.gameOjects).forEach(o => {
+            
+            //determine if object should actually maount
+            
+            o.mount(this);
+        })
+    }
+
+
+    addWall(x,y){
+        this.walls[`${x},${y}`] = true;
+    }
+
+    removeWall(x,y){
+        delete this.walls[`${x},${y}`];
+    }
+
+    moveWall(wasX, wasY, direction){
+        this.removeWall(wasX,wasY);
+        const {x,y} = utils.nextPosition(wasX,wasY, direction);
+        this.addWall(x,y)
+    }
+
 }
 
 
@@ -54,7 +79,9 @@ window.OverworldMaps = {
             },
         walls: {
             //"7,6" Dynamic Keys
-            [utils.asGridCoord(7,6)] : true,   
+            [utils.asGridCoord(3,4)] : true, //bookcase
+            [utils.asGridCoord(4,4)] : true,  
+            [utils.asGridCoord(7,6)] : true, //square block  
             [utils.asGridCoord(8,6)] : true,
             [utils.asGridCoord(7,7)] : true,
             [utils.asGridCoord(8,7)] : true,

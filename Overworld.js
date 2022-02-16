@@ -46,7 +46,8 @@ class Overworld {
 
  init() {
   this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
-  //console.log(this.map.walls);
+  this.map.mountObjects();
+  
   this.directionInput = new directionInput();
   this.directionInput.init();
   this.startGameLoop();
