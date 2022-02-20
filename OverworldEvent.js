@@ -1,4 +1,4 @@
- class OverworldEvent {
+class OverworldEvent {
   constructor({ map, event}) {
     this.map = map;
     this.event = event;
@@ -65,10 +65,20 @@
     sceneTransition.init(document.querySelector(".game-container"), () => {
       this.map.overworld.startMap( window.OverworldMaps[this.event.map] );
       resolve();
-      sceneTransition.fadeOut()
-    });
 
-    
+      sceneTransition.fadeOut();
+
+    })
+  }
+
+  battle(resolve) {
+    const battle = new Battle({
+      onComplete: () => {
+        resolve();
+      }
+    })
+    battle.init(document.querySelector(".game-container"));
+
   }
 
   init() {

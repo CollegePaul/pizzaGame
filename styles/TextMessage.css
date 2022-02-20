@@ -1,4 +1,4 @@
- .TextMessage {
+.TextMessage {
   position: absolute;
   left: 0;
   right: 0;
@@ -13,15 +13,12 @@
   margin: 0;
   font-size: 12px;
 }
-
 .TextMessage span {
   opacity: 0;
 }
-
 .TextMessage span.revealed {
   opacity: 1;
 }
-
 
 .TextMessage_button {
   margin: 0;

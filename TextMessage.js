@@ -15,10 +15,10 @@ class TextMessage {
       <button class="TextMessage_button">Next</button>
     `)
 
-    //typewriter
+    //Init the typewriter effect
     this.revealingText = new RevealingText({
       element: this.element.querySelector(".TextMessage_p"),
-      text: this.text,
+      text: this.text
     })
 
     this.element.querySelector("button").addEventListener("click", () => {
@@ -27,21 +27,20 @@ class TextMessage {
     });
 
     this.actionListener = new KeyPressListener("Enter", () => {
-     
       this.done();
     })
 
   }
 
   done() {
-    if(this.revealingText.isDone){
+
+    if (this.revealingText.isDone) {
       this.element.remove();
       this.actionListener.unbind();
       this.onComplete();
-    }else{
+    } else {
       this.revealingText.warpToDone();
     }
-    
   }
 
   init(container) {
