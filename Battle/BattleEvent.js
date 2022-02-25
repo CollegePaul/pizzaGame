@@ -4,10 +4,52 @@ class BattleEvent {
         this.battle = battle;
     }
 
-    textMessage(){
-        console.log("A Message")
-        //https://www.youtube.com/watch?v=AG6vXqPV2aE&list=PLcjhmZ8oLT0r9dSiIK6RB_PuBWlG1KSq_&index=12
-        //5.36
+    textMessage(resolve){
+
+        const text = this.event.text
+        .replace("{CASTER}", this.event.caster?.name)
+        .replace("{TARGET}", this.event.target?.name)
+        .replace("{ACTION}", this.event.action?.name)
+
+        const message = new TextMessage({
+            
+           text,
+            onComplete: () => {
+                resolve()
+            }
+        })
+        message.init(this.battle.element)
+    }
+
+    async stateChange(resolve){
+        const {caster, target, damage}  = this.event;
+        if (damage) {
+            //modify the target to have less hp
+            
+            //start blinking
+            target.pizzaElement.classList.add("battle-damage-blink");
+            //https://www.youtube.com/watch?v=AG6vXqPV2aE&t=643s
+        }
+            //wait a bit
+        await utils.wait(600)
+
+            //stop blinking
+
+        resolve();
+    }
+
+    submissionMenu(resolve){
+        const menu = new SubmissionMenu({
+            caster: this.event.caster,
+            enemy: this.event.enemy,
+            onComplete: submission => {
+                //submission {what to move to use, who on}
+                resolve(submission)
+            }
+
+        })
+
+        menu.init(this.battle.element);
     }
 
     init(resolve) {
