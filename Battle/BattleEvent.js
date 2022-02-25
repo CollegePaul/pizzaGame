@@ -25,16 +25,19 @@ class BattleEvent {
         const {caster, target, damage}  = this.event;
         if (damage) {
             //modify the target to have less hp
+            target.update({
+                hp: target.hp - damage
+            })
             
             //start blinking
-            target.pizzaElement.classList.add("battle-damage-blink");
-            //https://www.youtube.com/watch?v=AG6vXqPV2aE&t=643s
+            target.pizzaElement.classList.add("battle-damage-blink");   
         }
-            //wait a bit
+
+        //wait a bit
         await utils.wait(600)
 
-            //stop blinking
-
+        //stop blinking
+        target.pizzaElement.classList.remove("battle-damage-blink");
         resolve();
     }
 
@@ -50,6 +53,11 @@ class BattleEvent {
         })
 
         menu.init(this.battle.element);
+    }
+
+    animation(resolve){
+        const fn = BattleAnimations[this.event.animation];
+        fn(this.event, resolve);
     }
 
     init(resolve) {
